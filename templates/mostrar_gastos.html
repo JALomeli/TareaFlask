@@ -7,29 +7,26 @@
 </head>
 <body>
     <h1>Lista de gastos<h1>
-
+        <table border="2"> 
         <tr>
             <th> Categoria </th>
             <th> Monto </th>
         </tr>
         {% if gastos %}
+        
           {% for gasto in gastos %}
 
           <tr>
-            <br>
+            
             <td> {{gasto.categoria}} </td>
             <td> {{gasto.monto}} </td>
           </tr>
 
           {% endfor %}
+        </table>
           <h2>El total de tus gastos es: ${{total}}</h2>
         {% else %}
-        <tr>
-            <td colspan="2"> 
-                <br>
-                <label>No hay gastos registrados.</label>
-            </td>
-        </tr>
+            <label>No hay gastos registrados.</label>
         {% endif %}
 
         <br>

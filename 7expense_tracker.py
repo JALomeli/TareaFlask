@@ -33,17 +33,15 @@ class Expense_tracker:
         total = sum(gasto.monto for gasto in self.lista)
         return total
 
-    # def informe(self):
-    #     suma_informe = {}
-    #     for gasto in self.lista:
-    #         if gasto.categoria in suma_informe:
-    #             suma_informe[gasto.categoria] += gasto.monto
-    #         else:
-    #             suma_informe[gasto.categoria] = gasto.monto
+    def informe(self):
+        suma_informe = {}
+        for gasto in self.lista:
+            if gasto.categoria in suma_informe:
+                suma_informe[gasto.categoria] += gasto.monto
+            else:
+                suma_informe[gasto.categoria] = gasto.monto
+        return suma_informe
 
-    #     for categoria, total in suma_informe.items():
-    #         print("-------------------")
-    #         print(f"Categoria: {categoria} | monto: {total}")
 
     # def eliminar_ultimo(self):
     #     self.lista.pop()
@@ -76,6 +74,11 @@ def mostrar_gastos():
     gastos = tracker.mostrar_gastos()
     total= tracker.total_gastos()
     return render_template("mostrar_gastos.html", gastos =gastos, total=total)
+
+@app.route("/informe")
+def informe():
+    informe_datos = tracker.informe()
+    return render_template("informe.html", informe= informe_datos)
 
 if __name__ ==  "__main__":
     app.run(debug=True)

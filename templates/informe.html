@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de gastos</title>
+</head>
+<body>
+    <h1>Informe de gastos por categoria<h1>
+    <h2>(la suma se hace automaticamente)<h2>
+        {% if informe %}
+        <table border ="2">
+            <tr>
+                <th> Categoria </th>
+                <th> Monto </th>
+            </tr>
+            {% for categoria, monto in informe.items() %}
+            <tr>
+                <td> {{categoria}} </td>
+                <td> {{monto}} </td>
+              </tr>
+              {% endfor %}
+        </table>
+        {% else %}
+            <label>No hay gastos registrados.</label>
+        {% endif %}
+    <br>
+    <br>
+    <a href="{{url_for('index')}}">Volver al menu principal</a>
+</body>
+</html>
