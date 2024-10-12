@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar gastos</title>
+</head>
+<body>
+    <h1>Lista de gastos<h1>
+
+        <tr>
+            <th> Categoria </th>
+            <th> Monto </th>
+        </tr>
+        {% if gastos %}
+          {% for gasto in gastos %}
+
+          <tr>
+            <br>
+            <td> {{gasto.categoria}} </td>
+            <td> {{gasto.monto}} </td>
+          </tr>
+
+          {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="2"> 
+                <label>No hay gastos registrados.</label>
+            </td>
+        </tr>
+        {% endif %}
+
+        <br>
+        <br>
+    <a href="{{url_for('index')}}">Volver al menu principal</a>
+</body>
+</html>

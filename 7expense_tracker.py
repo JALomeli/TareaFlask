@@ -25,10 +25,9 @@ class Expense_tracker:
         self.lista.append(gasto)
         flash(f"Gasto agregado con exito :) , Categoria: {categoria} | Monto: ${monto}")
     
-    # def mostrar_gastos(self):
-    #     for gasto in self.lista:
-    #         print("-------------------")
-    #         print(f". Categoria: {categoria} | Monto:{monto}")
+    def mostrar_gastos(self):
+        return self.lista
+    
         
     # def total_gastos(self):
     #     total = sum(gasto.monto for gasto in self.lista)
@@ -71,6 +70,11 @@ def agregar_gasto():
         tracker.agregar_gasto(categoria,monto)
         return redirect(url_for("index"))
     return render_template("agregar_gasto.html")
+
+@app.route("/mostrar_gastos")
+def mostrar_gastos():
+    gastos = tracker.mostrar_gastos()
+    return render_template("mostrar_gastos.html", gastos =gastos)
 
 if __name__ ==  "__main__":
     app.run(debug=True)
