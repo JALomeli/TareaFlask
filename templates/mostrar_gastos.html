@@ -25,6 +25,9 @@
           {% endfor %}
         </table>
           <h2>El total de tus gastos es: ${{total}}</h2>
+          {% if presupuesto_excedido %}
+            <label class="alert" style="color:red">¡CUIDADITO! Has excedido tu presupuesto.</label>
+          {% endif %}
         {% else %}
             <label>No hay gastos registrados.</label>
         {% endif %}

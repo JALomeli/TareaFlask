@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Establecer presupuesto</title>
+</head>
+<body>
+    <h1>Establece tu presupuesto<h1>
+    <form method="POST" action="{{url_for('establecer_presupuesto')}}">
+
+        <label for="presupuesto">Presupuesto: $</label>
+        <input type="number" name="presupuesto" required/>
+        <button type="submit">Establecer</button>
+        <br><br>
+    </form>
+    <a href="{{url_for('index')}}">Volver al menu principal</a>
+</body>
+</html>

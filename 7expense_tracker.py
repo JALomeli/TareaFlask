@@ -19,12 +19,15 @@ class Expense_tracker:
 
     def __init__(self):
         self.lista=[]
+        self.presupuesto=0
 
     def agregar_gasto(self, categoria: str, monto: float):
         gasto = Gasto(categoria, monto)
         self.lista.append(gasto)
         flash(f"Gasto agregado con exito :) , Categoria: {categoria} | Monto: ${monto}")
-    
+        if self.exceso_presupuesto():
+            flash("Se excedio tu presupuesto CUIDADITO!")
+
     def mostrar_gastos(self):
         return self.lista
     
@@ -42,23 +45,27 @@ class Expense_tracker:
                 suma_informe[gasto.categoria] = gasto.monto
         return suma_informe
 
+    def establecer_presupuesto(self, monto:float):
+        self.presupuesto = monto
+        flash(f"Presupuesto: ${monto}")
 
-    # def eliminar_ultimo(self):
-    #     self.lista.pop()
-    #     print("-------------------")
-    #     print("Tu ultimo gasto fue elimina con exito")
-
-
-    # def limpiar_lista(self):
-    #     self.lista.clear()
-    #     print("-------------------")
-    #     print("Tu lista fue limpiada con exito, tu lista actualizada:", self.lista)
-    
+    def exceso_presupuesto(self):
+        total_gastos =self.total_gastos()
+        return total_gastos > self.presupuesto
 tracker = Expense_tracker()
 
 @app.route("/")
 def index():
-    return render_template("inicio.html")
+    return render_template("inicio.html", presupuesto=tracker.presupuesto)
+
+@app.route("/establecer_presupuesto", methods=["GET", "POST"])
+def establecer_presupuesto():
+    if request.method== "POST":
+        presupuesto = float(request.form["presupuesto"])
+        tracker.establecer_presupuesto(presupuesto)
+        return redirect(url_for("index"))
+    return render_template("establecer_presupuesto.html")
+
 
 @app.route("/agregar_gasto", methods=["GET", "POST"])
 def agregar_gasto():
@@ -73,7 +80,8 @@ def agregar_gasto():
 def mostrar_gastos():
     gastos = tracker.mostrar_gastos()
     total= tracker.total_gastos()
-    return render_template("mostrar_gastos.html", gastos =gastos, total=total)
+    presupuesto_excedido = tracker.exceso_presupuesto()
+    return render_template("mostrar_gastos.html", gastos =gastos, total=total, presupuesto_excedido = presupuesto_excedido)
 
 @app.route("/informe")
 def informe():
