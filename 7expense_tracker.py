@@ -29,9 +29,9 @@ class Expense_tracker:
         return self.lista
     
         
-    # def total_gastos(self):
-    #     total = sum(gasto.monto for gasto in self.lista)
-    #     return total
+    def total_gastos(self):
+        total = sum(gasto.monto for gasto in self.lista)
+        return total
 
     # def informe(self):
     #     suma_informe = {}
@@ -74,7 +74,8 @@ def agregar_gasto():
 @app.route("/mostrar_gastos")
 def mostrar_gastos():
     gastos = tracker.mostrar_gastos()
-    return render_template("mostrar_gastos.html", gastos =gastos)
+    total= tracker.total_gastos()
+    return render_template("mostrar_gastos.html", gastos =gastos, total=total)
 
 if __name__ ==  "__main__":
     app.run(debug=True)
